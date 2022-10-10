@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) @DarkzzAngel
+# (c) Dark Angel
 
 import os
-import sys
-import asyncio
 from config import Config
 from translation import Translation
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
-
-#===================Start Function===================#
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
-        ],[
-        InlineKeyboardButton('💡 SouceCode', url='https://github.com/Jijinr/Frwdit-V2'),
-        InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
+    ],[
+        InlineKeyboardButton('SouceCode 💡', url='https://github.com/Jijinr/Frwdit')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
@@ -29,12 +24,9 @@ async def start(client, message):
                 message.from_user.first_name),
         parse_mode="html")
 
-#===================Help Function===================#
-
 @Client.on_message(filters.private & filters.command(['help']))
 async def help(client, message):
     buttons = [[
-        InlineKeyboardButton('SouceCode 💡', url='https://github.com/Jijinr/Frwdit-V2'),
         InlineKeyboardButton('close 🔐', callback_data='close_btn')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -44,12 +36,10 @@ async def help(client, message):
         text=Translation.HELP_TXT,
         parse_mode="html")
 
-#=================About Function==================#
-
 @Client.on_message(filters.private & filters.command(['about']))
 async def about(client, message):
     buttons = [[
-        InlineKeyboardButton('💡 SouceCode', url='https://github.com/Jijinr/Frwdit-V2'),
+        InlineKeyboardButton('💡 SouceCode', url='https://github.com/Jijinr/Frwdit'),
         InlineKeyboardButton('close 🔐', callback_data='close_btn')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -61,14 +51,4 @@ async def about(client, message):
         parse_mode="html"
     )
 
-#==================Restart Function==================#
-
-@Client.on_message(filters.private & filters.command(['restart']))
-async def restart(client, message):
-    msg = await message.reply_text(
-        text="<i>Trying to restarting.....</i>"
-    )
-    await asyncio.sleep(5)
-    await msg.edit("<i>Server restarted successfully ✅</i>")
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    
+        
